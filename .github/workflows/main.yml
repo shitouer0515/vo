@@ -1,14 +1,16 @@
-name: sync-jd_scripts
+name: sync-lxk0301/jd_scripts
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '*/15 0-16,22-23 * * *'
+  - cron:  "*/15 * * * *"
+  workflow_dispatch:
+  watch:
+    types: started
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
-    if: github.repository == 'shitouer0515/vo'
+    runs-on: ubuntu-18.04
+    if: github.event.repository.owner.id == github.event.sender.id
     timeout-minutes: 2
 
     steps:
@@ -22,22 +24,33 @@ jobs:
         sudo -E apt-get clean -y
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
 
-    - name: Prepare Key
+    - name: Prepare
       run: |
         mkdir -p ~/.ssh
         echo -e "${{ secrets.LXKEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan gitee.com > ~/.ssh/known_hosts
 
-    - name: Clone Master
+    - name: Clone master
       run: |
-        git clone -b main git@jd_scripts_gitee:lxk0301/jd_scripts.git main
+        git clone -b master git@gitee.com:lxk0301/jd_scripts.git master
 
-    - name: Push Master
+    - name: Push master
       uses: ad-m/github-push-action@master
       with:
         directory: master
-        github_token: ${{ secrets.PAT }}
+        github_token: ${{ secrets.SYNC }}
+        branch: master
+
+    - name: Clone main
+      run: |
+        git clone -b main git@gitee.com:lxk0301/jd_scripts.git main
+
+    - name: Push main
+      uses: ad-m/github-push-action@master
+      with:
+        directory: main
+        github_token: ${{ secrets.SYNC }}
         branch: main
 
     - name: Delete Workflow Runs
