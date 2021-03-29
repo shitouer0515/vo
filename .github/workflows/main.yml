@@ -31,14 +31,14 @@ jobs:
 
     - name: Clone Master
       run: |
-        git clone -b master git@jd_scripts_gitee:lxk0301/jd_scripts.git master
+        git clone -b main git@jd_scripts_gitee:lxk0301/jd_scripts.git main
 
     - name: Push Master
       uses: ad-m/github-push-action@master
       with:
         directory: master
         github_token: ${{ secrets.PAT }}
-        branch: master
+        branch: main
 
     - name: Delete Workflow Runs
       uses: Mattraks/delete-workflow-runs@main
