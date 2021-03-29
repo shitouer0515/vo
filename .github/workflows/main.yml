@@ -31,7 +31,7 @@ jobs:
 
     - name: Clone Master
       run: |
-        git clone -b master git@gitee.com:lxk0301/jd_scripts.git master
+        git clone -b master git@jd_scripts_gitee:lxk0301/jd_scripts.git master
 
     - name: Push Master
       uses: ad-m/github-push-action@master
