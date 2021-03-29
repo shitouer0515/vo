@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-18.04
-    if: github.repository == 'shitouer0515/jd_scripts-gitee'
+    if: github.repository == 'shitouer0515/vo'
     timeout-minutes: 2
 
     steps:
