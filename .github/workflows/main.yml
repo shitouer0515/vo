@@ -42,9 +42,9 @@ jobs:
         github_token: ${{ secrets.SYNC }}
         branch: master
 
-#     - name: Clone main
-#       run: |
-#         git clone -b main git@gitee.com:lxk0301/jd_scripts.git main
+    - name: Clone main
+      run: |
+        git clone -b main git@gitee.com:lxk0301/jd_scripts.git main
 
     - name: Push main
       uses: ad-m/github-push-action@master
